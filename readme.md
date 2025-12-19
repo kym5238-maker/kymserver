@@ -1,3 +1,3 @@
 # Wanted Clone 2025 update
 
-USE C++
+USE C++ & MYSQL & REDIS
