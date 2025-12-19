@@ -34,3 +34,5 @@ Release/
 *.idb
 *.tlog
 *.log
+external/
+*.zip
