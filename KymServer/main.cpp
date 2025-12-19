@@ -43,10 +43,14 @@ int main()
     }
     catch (sql::SQLException& e)
     {
-        std::cerr << "[MySQL Error]\n";
-        std::cerr << "Error Code: " << e.getErrorCode() << "\n";
-        std::cerr << "SQLState: " << e.getSQLState() << "\n";
-        std::cerr << "Message: " << e.what() << std::endl;
+		const auto errorCode = e.getErrorCode();
+        if (errorCode != 1062)
+        {
+            std::cerr << "[MySQL Error]\n";
+            std::cerr << "Error Code: " << errorCode << "\n";
+            std::cerr << "SQLState: " << e.getSQLState() << "\n";
+            std::cerr << "Message: " << e.what() << std::endl;
+        }
     }
 
 	// SELECT ผ๖วเ

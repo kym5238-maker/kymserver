@@ -1,0 +1,36 @@
+# ===== Visual Studio =====
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IntelliSense / browse DB
+*.VC.db
+*.VC.VC.opendb
+ipch/
+*.ipch
+
+# VS/SQLite temp files
+*.db
+*.db-shm
+*.db-wal
+
+# ===== Build outputs =====
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+build/
+Debug/
+Release/
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.obj
+*.pch
+*.idb
+*.tlog
+*.log

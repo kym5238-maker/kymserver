@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)build\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -102,16 +105,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\KymServer\x64\Debug\External\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\KymServer\x64\Debug\External\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\lib64\vs14\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>C:\KymServer\x64\Debug\External\mysql\mysql-connector-c++-8.0.33-winx64\lib64\vs14\mysqlcppconn.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\lib64\vs14</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64\lib64\vs14\mysqlcppconn.lib</AdditionalDependencies>
       <ShowProgress>LinkVerboseLib</ShowProgress>
       <RegisterOutput>false</RegisterOutput>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y /D "$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\lib64\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
