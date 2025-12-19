@@ -53,6 +53,8 @@ int main()
         }
     }
 
+	int lastAccountID = -1;
+
 	// SELECT 수행
     try
     {
@@ -88,8 +90,11 @@ int main()
         // 5. 결과 출력
         while (res->next())
         {
+            const auto accountID = res->getInt("account_id");
+            lastAccountID = accountID;
+
             std::cout
-                << "account_id: " << res->getInt("account_id") << ", "
+                << "account_id: " << accountID << ", "
                 << "login_id: " << res->getString("login_id") << ", "
                 << "password: " << res->getString("password") << ", "
                 << "nickname: " << res->getString("nickname") << ", "
@@ -104,6 +109,43 @@ int main()
         std::cerr << "Error Code: " << e.getErrorCode() << "\n";
         std::cerr << "SQL State: " << e.getSQLState() << "\n";
         std::cerr << "Message: " << e.what() << std::endl;
+    }
+
+    if (lastAccountID != -1)
+    {
+        // 1. Driver 가져오기
+        sql::Driver* driver = get_driver_instance();
+
+        // 2. DB 연결
+        std::unique_ptr<sql::Connection> conn(
+            driver->connect(
+                "tcp://127.0.0.1:3306",
+                "root",
+                "dudahr5"   // 네 root 비밀번호
+            )
+        );
+
+        // 3. 사용할 DB 선택
+        conn->setSchema("kymdb");
+
+        std::unique_ptr<sql::PreparedStatement> pstmt(
+            conn->prepareStatement(
+                "UPDATE accounts "
+                "SET logined_at = NOW() "
+                "WHERE account_id = ?"
+            )
+        );
+
+        pstmt->setInt(1, lastAccountID);
+
+        int affected = pstmt->executeUpdate();
+
+        std::cout
+            << "logined_at 업데이트 완료 (account_id="
+            << lastAccountID
+            << "), 영향 받은 row 수: "
+            << affected
+            << std::endl;
     }
 
     return 0;
