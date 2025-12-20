@@ -112,7 +112,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\lib64\vs14</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64\lib64\vs14\mysqlcppconn.lib</AdditionalDependencies>
-      <ShowProgress>LinkVerboseLib</ShowProgress>
+      <ShowProgress>NotSet</ShowProgress>
       <RegisterOutput>false</RegisterOutput>
     </Link>
     <PostBuildEvent>
@@ -134,7 +134,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DBExecutor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PreparedQuery.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DBExecutor.h" />
+    <ClInclude Include="DbQueryResult.h" />
+    <ClInclude Include="DbResult.h" />
+    <ClInclude Include="DbResultSet.h" />
+    <ClInclude Include="DbRow.h" />
+    <ClInclude Include="PreparedQuery.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

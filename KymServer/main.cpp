@@ -1,150 +1,96 @@
 #include <mysql/jdbc.h> 
+#include "DBExecutor.h"
+#include "PreparedQuery.h"
+#include "DbRow.h"
+#include "DbResultSet.h"
 
 int main()
 {
-    // UPDATE 수행
-    try
+	// INSERT 수행
     {
-        // 1. Driver 가져오기
-        sql::Driver* driver = get_driver_instance();
-
-        // 2. DB 연결
-        std::unique_ptr<sql::Connection> conn(
-            driver->connect(
-                "tcp://127.0.0.1:3306",
-                "root",
-                "dudahr5"   // 네 root 비밀번호
-            )
+        DBExecutor dbExecutor;
+        auto query = dbExecutor.PrepareQuery(
+            "INSERT INTO accounts (login_id, password, nickname) "
+            "VALUES (?, ?, ?)"
         );
 
-        // 3. 사용할 DB 선택
-        conn->setSchema("kymdb");
-
-        // 4. PreparedStatement 생성
-        std::unique_ptr<sql::PreparedStatement> pstmt(
-            conn->prepareStatement(
-                "INSERT INTO accounts (login_id, password, nickname) "
-                "VALUES (?, ?, ?)"
-            )
-        );
-
-        // 5. 파라미터 바인딩
-        pstmt->setString(1, "test02");
-        pstmt->setString(2, "1234");
-        pstmt->setString(3, "moalpapa2");
-
-        // 6. 실행
-        int affected = pstmt->executeUpdate();
-
-        std::cout << "INSERT 성공, 영향 받은 row 수: "
-            << affected << std::endl;
-
-
-    }
-    catch (sql::SQLException& e)
-    {
-		const auto errorCode = e.getErrorCode();
-        if (errorCode != 1062)
+        auto result = (query << "test02" << "1234" << "moalpapa2").TryExecuteUpdate(1062);
+        if (result.IsFail())
         {
-            std::cerr << "[MySQL Error]\n";
-            std::cerr << "Error Code: " << errorCode << "\n";
-            std::cerr << "SQLState: " << e.getSQLState() << "\n";
-            std::cerr << "Message: " << e.what() << std::endl;
+            std::cerr << result.ToErrorString() << std::endl;
+            return 1;
         }
-    }
 
-	int lastAccountID = -1;
+        std::cout << "INSERT 성공, 영향 받은 row 수: " << result.affectedRows << "\n";
+    }
 
 	// SELECT 수행
-    try
+	int lastAccountID = -1;
     {
-        // 1. 드라이버
-        sql::mysql::MySQL_Driver* driver =
-            sql::mysql::get_mysql_driver_instance();
-
-        // 2. 연결
-        std::unique_ptr<sql::Connection> conn(
-            driver->connect(
-                "tcp://127.0.0.1:3306",
-                "root",
-                "dudahr5"
-            )
+        DBExecutor dbExecutor;
+        auto query = dbExecutor.PrepareQuery(
+            "SELECT account_id, login_id, password, nickname, created_at, logined_at "
+            "FROM accounts"
         );
 
-        // 3. DB 선택 + 문자셋
+        DbResultSet rs(query.TryExecuteQuery());
+        if (rs.IsFail())
         {
-            std::unique_ptr<sql::Statement> stmt(conn->createStatement());
-            stmt->execute("USE kymdb");
-            stmt->execute("SET NAMES utf8mb4");
+            std::cerr << rs.ToErrorString() << std::endl;
+            return 1;
         }
 
-        // 4. SELECT
-        std::unique_ptr<sql::Statement> stmt(conn->createStatement());
-        std::unique_ptr<sql::ResultSet> res(
-            stmt->executeQuery(
-                "SELECT account_id, login_id, password, nickname, created_at, logined_at "
-                "FROM accounts"
-            )
-        );
-
-        // 5. 결과 출력
-        while (res->next())
+        DbRow row;
+        while (rs.Next(row))
         {
-            const auto accountID = res->getInt("account_id");
-            lastAccountID = accountID;
+            int accountId;
+            std::string loginId;
+            std::string password;
+            std::string nickname;
+            std::string createdAt;
+            std::string loginedAt;
 
-            std::cout
-                << "account_id: " << accountID << ", "
-                << "login_id: " << res->getString("login_id") << ", "
-                << "password: " << res->getString("password") << ", "
-                << "nickname: " << res->getString("nickname") << ", "
-                << "created_at: " << res->getString("created_at") << ", "
-                << "logined_at: " << res->getString("logined_at")
-                << std::endl;
+            row >> accountId
+                >> loginId
+                >> password
+                >> nickname
+                >> createdAt
+                >> loginedAt;
+
+            lastAccountID = accountId;
+
+            std::cout   << "account_id: " << accountId << ", "
+                        << "login_id: " << loginId << ", "
+                        << "password: " << password << ", "
+                        << "nickname: " << nickname << ", "
+                        << "created_at: " << createdAt << ", "
+                        << "logined_at: " << loginedAt
+                        << std::endl;
         }
     }
-    catch (sql::SQLException& e)
-    {
-        std::cerr << "[SQL ERROR]\n";
-        std::cerr << "Error Code: " << e.getErrorCode() << "\n";
-        std::cerr << "SQL State: " << e.getSQLState() << "\n";
-        std::cerr << "Message: " << e.what() << std::endl;
-    }
-
+   
     if (lastAccountID != -1)
     {
-        // 1. Driver 가져오기
-        sql::Driver* driver = get_driver_instance();
+        DBExecutor dbExecutor;
 
-        // 2. DB 연결
-        std::unique_ptr<sql::Connection> conn(
-            driver->connect(
-                "tcp://127.0.0.1:3306",
-                "root",
-                "dudahr5"   // 네 root 비밀번호
-            )
+        auto query = dbExecutor.PrepareQuery(
+            "UPDATE accounts "
+            "SET logined_at = NOW() "
+            "WHERE account_id = ?"
         );
 
-        // 3. 사용할 DB 선택
-        conn->setSchema("kymdb");
-
-        std::unique_ptr<sql::PreparedStatement> pstmt(
-            conn->prepareStatement(
-                "UPDATE accounts "
-                "SET logined_at = NOW() "
-                "WHERE account_id = ?"
-            )
-        );
-
-        pstmt->setInt(1, lastAccountID);
-
-        int affected = pstmt->executeUpdate();
+        auto result = (query << lastAccountID).TryExecuteUpdate();
+        if (result.IsFail())
+        {
+            std::cerr << result.ToErrorString() << std::endl;
+            return 1;
+        }
 
         std::cout
             << "logined_at 업데이트 완료 (account_id="
             << lastAccountID
             << "), 영향 받은 row 수: "
-            << affected
+            << result.affectedRows
             << std::endl;
     }
 
