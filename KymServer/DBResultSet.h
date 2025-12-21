@@ -1,12 +1,12 @@
 #pragma once
 #include <memory>
-#include "DbQueryResult.h"
-#include "DbRow.h"
+#include "DBQueryResult.h"
+#include "DBRow.h"
 
-class DbResultSet
+class DBResultSet
 {
 public:
-    explicit DbResultSet(DbQueryResult qr)
+    explicit DBResultSet(DBQueryResult qr)
         : m_result(std::move(qr.result))
         , m_rs(std::move(qr.rs))
     {
@@ -15,7 +15,7 @@ public:
     bool IsFail() const { return m_result.IsFail(); }
     std::string ToErrorString() const { return m_result.ToErrorString(); }
 
-    bool Next(DbRow& outRow)
+    bool Next(DBRow& outRow)
     {
         if (!m_rs) return false;
         if (!m_rs->next()) return false;
@@ -24,6 +24,6 @@ public:
     }
 
 private:
-    DbResult m_result;
+    DBResult m_result;
     std::unique_ptr<sql::ResultSet> m_rs;
 };

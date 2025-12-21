@@ -2,10 +2,10 @@
 #include <string>
 #include <mysql/jdbc.h>
 
-class DbRow
+class DBRow
 {
 public:
-    DbRow() = default;
+    DBRow() = default;
 
     void Bind(sql::ResultSet* rs)
     {
@@ -14,13 +14,13 @@ public:
     }
 
     // >> 연산자 오버로딩
-    DbRow& operator>>(int& out)
+    DBRow& operator>>(int& out)
     {
         out = m_rs->getInt(m_colIndex++);
         return *this;
     }
 
-    DbRow& operator>>(std::string& out)
+    DBRow& operator>>(std::string& out)
     {
         out = m_rs->getString(m_colIndex++);
         return *this;

@@ -2,13 +2,13 @@
 #include <string>
 #include <sstream>
 
-struct DbResult
+struct DBResult
 {
     bool IsFail() const { return ok == false; }
-    static DbResult Ok(int affected) { return { true, affected, 0, "", "" }; }
-    static DbResult Fail(int code, std::string state, std::string msg)
+    static DBResult Ok(int affected) { return { true, affected, 0, "", "" }; }
+    static DBResult Fail(int code, std::string state, std::string msg)
     {
-        DbResult r;
+        DBResult r;
         r.ok = false;
         r.errorCode = code;
         r.sqlState = std::move(state);

@@ -36,12 +36,12 @@ int PreparedQuery::ExecuteUpdate()
     return m_pstmt->executeUpdate();
 }
 
-DbResult PreparedQuery::TryExecuteUpdate(int ignoreErrorCode)
+DBResult PreparedQuery::TryExecuteUpdate(int ignoreErrorCode)
 {
     try
     {
         int affected = ExecuteUpdate(); // 내부에서 paramIndex 리셋됨
-        return DbResult::Ok(affected);
+        return DBResult::Ok(affected);
     }
     catch (sql::SQLException& e)
     {
@@ -49,24 +49,24 @@ DbResult PreparedQuery::TryExecuteUpdate(int ignoreErrorCode)
         if (ignoreErrorCode != 0 && code == ignoreErrorCode)
         {
             // “무시” 정책: 실패로 보지 않고, 영향 0으로 성공 처리
-            return DbResult::Ok(0);
+            return DBResult::Ok(0);
         }
 
-        return DbResult::Fail(code, e.getSQLState(), e.what());
+        return DBResult::Fail(code, e.getSQLState(), e.what());
     }
 }
 
-DbQueryResult PreparedQuery::TryExecuteQuery()
+DBQueryResult PreparedQuery::TryExecuteQuery()
 {
     try
     {
         auto rs = ExecuteQuery(); // 기존 함수
-        return DbQueryResult{ DbResult::Ok(0), std::move(rs) };
+        return DBQueryResult{ DBResult::Ok(0), std::move(rs) };
     }
     catch (sql::SQLException& e)
     {
-        return DbQueryResult{
-            DbResult::Fail(e.getErrorCode(), e.getSQLState(), e.what()),
+        return DBQueryResult{
+            DBResult::Fail(e.getErrorCode(), e.getSQLState(), e.what()),
             nullptr
         };
     }

@@ -16,6 +16,12 @@
     <Filter Include="소스 파일\DB">
       <UniqueIdentifier>{a88a90b9-d387-4ca2-b225-e6d92579f6f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\DB\Helper">
+      <UniqueIdentifier>{2a0227e8-a18d-49dc-8cd5-976348ca71b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Define">
+      <UniqueIdentifier>{9c52823d-95b4-4307-acfc-6a12f8988cbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,6 +33,12 @@
     <ClCompile Include="PreparedQuery.cpp">
       <Filter>소스 파일\DB</Filter>
     </ClCompile>
+    <ClCompile Include="AccountDBHelper.cpp">
+      <Filter>소스 파일\DB\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorCode.h">
+      <Filter>소스 파일\Define</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DBExecutor.h">
@@ -35,17 +47,23 @@
     <ClInclude Include="PreparedQuery.h">
       <Filter>소스 파일\DB</Filter>
     </ClInclude>
-    <ClInclude Include="DbResult.h">
+    <ClInclude Include="DBResult.h">
       <Filter>소스 파일\DB</Filter>
     </ClInclude>
-    <ClInclude Include="DbRow.h">
+    <ClInclude Include="DBRow.h">
       <Filter>소스 파일\DB</Filter>
     </ClInclude>
-    <ClInclude Include="DbResultSet.h">
+    <ClInclude Include="DBResultSet.h">
       <Filter>소스 파일\DB</Filter>
     </ClInclude>
-    <ClInclude Include="DbQueryResult.h">
+    <ClInclude Include="DBQueryResult.h">
       <Filter>소스 파일\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountDBHelper.h">
+      <Filter>소스 파일\DB\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>소스 파일\Define</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

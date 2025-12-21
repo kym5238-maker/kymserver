@@ -1,11 +1,11 @@
 #pragma once
 #include <memory>
 #include <mysql/jdbc.h>
-#include "DbResult.h"
+#include "DBResult.h"
 
-struct DbQueryResult
+struct DBQueryResult
 {
-    DbResult result;
+    DBResult result;
     std::unique_ptr<sql::ResultSet> rs;
 
     bool IsFail() const { return result.IsFail(); }

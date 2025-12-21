@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 #include <mysql/jdbc.h>
-#include "DbResult.h"
-#include "DbQueryResult.h"
+#include "DBResult.h"
+#include "DBQueryResult.h"
 
 class PreparedQuery
 {
@@ -17,8 +17,8 @@ public:
     std::unique_ptr<sql::ResultSet> ExecuteQuery();
 
     int ExecuteUpdate();
-    DbResult TryExecuteUpdate(int ignoreErrorCode = 0);
-    DbQueryResult TryExecuteQuery();
+    DBResult TryExecuteUpdate(int ignoreErrorCode = 0);
+    DBQueryResult TryExecuteQuery();
 
 private:
     std::unique_ptr<sql::PreparedStatement> m_pstmt;
