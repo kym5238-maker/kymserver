@@ -6,6 +6,7 @@
 #include "ErrorCode.h"
 #include "DBResult.h"
 #include "DBResultSet.h"
+#include "Logger.h"
 
 Error AccountDBHelper::Register(
     const std::string& loginId,
@@ -21,11 +22,14 @@ Error AccountDBHelper::Register(
     auto dbResult = (query << loginId << password << nickname).TryExecuteUpdate(1062);
     if (dbResult.IsFail())
     {
-        return TranslateInsertError(dbResult);
+        Error error = TranslateInsertError(dbResult);
+		LOG_ERROR("Account Register failed! error={}", error);
+
+        return { error };
     }
 
-    std::cout << "[Account] Register success, affectedRows="
-        << dbResult.affectedRows << "\n";
+    if (dbResult.affectedRows > 0)
+        LOG_INFO("Account Register success! affectedRows={}", dbResult.affectedRows);
 
     return { ErrorCode::None };
 }
@@ -45,11 +49,23 @@ Error AccountDBHelper::UpdateLoginTimestamp(int accountId)
         return { ErrorCode::DatabaseError };
     }
 
-    // 필요 시 로그
-    // std::cout << "[Account] UpdateLoginTimestamp success, accountId="
-    //           << accountId
-    //           << ", affectedRows="
-    //           << dbResult.affectedRows << "\n";
+    return { ErrorCode::None };
+}
+
+Error AccountDBHelper::UpdateLogoutTimestamp(int accountId)
+{
+    DBExecutor dbExecutor;
+    auto query = dbExecutor.PrepareQuery(
+        "UPDATE accounts "
+        "SET logouted_at = NOW() "
+        "WHERE account_id = ?"
+    );
+
+    auto dbResult = (query << accountId).TryExecuteUpdate();
+    if (dbResult.IsFail())
+    {
+        return { ErrorCode::DatabaseError };
+    }
 
     return { ErrorCode::None };
 }

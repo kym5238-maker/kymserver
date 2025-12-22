@@ -16,14 +16,6 @@ struct DBResult
         return r;
     }
 
-    bool ok = false;
-    int affectedRows = 0;
-
-    // 에러 정보(필요할 때만)
-    int errorCode = 0;
-    std::string sqlState;
-    std::string message;
-
     std::string ToErrorString() const
     {
         std::ostringstream oss;
@@ -33,4 +25,10 @@ struct DBResult
             << "Message: " << message;
         return oss.str();
     }
+
+    bool ok = false;
+    int affectedRows = 0;
+    int errorCode = 0;
+    std::string sqlState;
+    std::string message;
 };

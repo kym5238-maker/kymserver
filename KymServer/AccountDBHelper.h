@@ -19,6 +19,7 @@ class AccountDBHelper
 public:
     static Error Register(const std::string& loginId, const std::string& password, const std::string& nickname);
     static Error UpdateLoginTimestamp(int accountId);
+    static Error UpdateLogoutTimestamp(int accountId);
     static Error GetAllAccounts(std::vector<AccountRow>& outAccounts);
 
 private:
