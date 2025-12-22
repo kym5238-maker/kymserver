@@ -106,6 +106,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\mysql\mysql-connector-c++-8.0.33-winx64-debug\mysql-connector-c++-8.0.33-winx64\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +138,7 @@
     <ClCompile Include="AccountDBHelper.cpp" />
     <ClCompile Include="DBExecutor.cpp" />
     <ClCompile Include="ErrorCode.h" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PreparedQuery.cpp" />
   </ItemGroup>
@@ -148,6 +150,7 @@
     <ClInclude Include="DBResultSet.h" />
     <ClInclude Include="DBRow.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="PreparedQuery.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

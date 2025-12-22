@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\Define">
       <UniqueIdentifier>{9c52823d-95b4-4307-acfc-6a12f8988cbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Log">
+      <UniqueIdentifier>{3817dd6d-8b12-433c-919a-87a4185ea63d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="ErrorCode.h">
       <Filter>소스 파일\Define</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>소스 파일\Log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="Error.h">
       <Filter>소스 파일\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>소스 파일\Log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "DBExecutor.h"
-#include "Error.h"        // ✅ Error 래퍼
+#include "Error.h"
 #include "ErrorCode.h"
 #include "DBResult.h"
 #include "DBResultSet.h"
@@ -21,7 +21,7 @@ Error AccountDBHelper::Register(
     auto dbResult = (query << loginId << password << nickname).TryExecuteUpdate(1062);
     if (dbResult.IsFail())
     {
-        return TranslateInsertError(dbResult); // Error 반환
+        return TranslateInsertError(dbResult);
     }
 
     std::cout << "[Account] Register success, affectedRows="
