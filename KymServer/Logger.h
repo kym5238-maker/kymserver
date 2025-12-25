@@ -6,19 +6,19 @@
 class Logger
 {
 public:
-    enum class Level { INFO, ERROR };
+    enum class Level { Info, Error };
 
     // 템플릿은 헤더에 정의(중요!)
     template<typename... Args>
     static void Info(std::string_view fmt, Args&&... args)
     {
-        LogImpl(Level::INFO, BuildMessage(fmt, std::forward<Args>(args)...));
+        LogImpl(Level::Info, BuildMessage(fmt, std::forward<Args>(args)...));
     }
 
     template<typename... Args>
     static void Error(std::string_view fmt, Args&&... args)
     {
-        LogImpl(Level::ERROR, BuildMessage(fmt, std::forward<Args>(args)...));
+        LogImpl(Level::Error, BuildMessage(fmt, std::forward<Args>(args)...));
     }
 
 private:

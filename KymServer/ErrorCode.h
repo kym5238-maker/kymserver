@@ -4,11 +4,18 @@ enum class ErrorCode
 {
     None = 0,
 
-    // Account / Auth
-    DuplicateKey,        // 중복 키 (login_id 등)
-    AccountNotFound,
+    // ===== Common =====
+    DatabaseError = 1,
+    InvalidParameter = 2,
 
-    // Common
-    DatabaseError,
-    InvalidParameter,
+    // ===== Redis =====
+    RedisNotConnected = 10,
+    RedisConnectFailed = 11,     
+    RedisCommandFailed = 12,     
+    RedisReplyError = 13,
+    RedisUnexpectedReply = 14,   
+
+    // ===== Account / Auth =====
+    DuplicateKey = 30,
+    AccountNotFound = 31,
 };

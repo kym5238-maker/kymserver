@@ -102,7 +102,7 @@ void Logger::LogImpl(Level level, const std::string& message)
 
     std::lock_guard<std::mutex> lock(g_writeMutex);
 
-    if (level == Level::INFO)
+    if (level == Level::Info)
     {
         EnsureInfoFileOpen();
         g_infoFile << line;

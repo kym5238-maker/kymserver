@@ -25,16 +25,16 @@
     <Filter Include="소스 파일\Log">
       <UniqueIdentifier>{3817dd6d-8b12-433c-919a-87a4185ea63d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\DB\Redis">
+      <UniqueIdentifier>{c2621864-44cd-4262-b142-827715c7f69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DB\MYSQL">
+      <UniqueIdentifier>{1dcd8adc-7782-46cd-a7bd-fdce1c9a8d59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="DBExecutor.cpp">
-      <Filter>소스 파일\DB</Filter>
-    </ClCompile>
-    <ClCompile Include="PreparedQuery.cpp">
-      <Filter>소스 파일\DB</Filter>
     </ClCompile>
     <ClCompile Include="AccountDBHelper.cpp">
       <Filter>소스 파일\DB\Helper</Filter>
@@ -45,26 +45,17 @@
     <ClCompile Include="Logger.cpp">
       <Filter>소스 파일\Log</Filter>
     </ClCompile>
+    <ClCompile Include="DBExecutor.cpp">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClCompile>
+    <ClCompile Include="PreparedQuery.cpp">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClCompile>
+    <ClCompile Include="RedisClient.cpp">
+      <Filter>소스 파일\DB\Redis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DBExecutor.h">
-      <Filter>소스 파일\DB</Filter>
-    </ClInclude>
-    <ClInclude Include="PreparedQuery.h">
-      <Filter>소스 파일\DB</Filter>
-    </ClInclude>
-    <ClInclude Include="DBResult.h">
-      <Filter>소스 파일\DB</Filter>
-    </ClInclude>
-    <ClInclude Include="DBRow.h">
-      <Filter>소스 파일\DB</Filter>
-    </ClInclude>
-    <ClInclude Include="DBResultSet.h">
-      <Filter>소스 파일\DB</Filter>
-    </ClInclude>
-    <ClInclude Include="DBQueryResult.h">
-      <Filter>소스 파일\DB</Filter>
-    </ClInclude>
     <ClInclude Include="AccountDBHelper.h">
       <Filter>소스 파일\DB\Helper</Filter>
     </ClInclude>
@@ -73,6 +64,27 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>소스 파일\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="DBExecutor.h">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClInclude>
+    <ClInclude Include="DBQueryResult.h">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClInclude>
+    <ClInclude Include="DBResult.h">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClInclude>
+    <ClInclude Include="DBResultSet.h">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClInclude>
+    <ClInclude Include="DBRow.h">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClInclude>
+    <ClInclude Include="PreparedQuery.h">
+      <Filter>소스 파일\DB\MYSQL</Filter>
+    </ClInclude>
+    <ClInclude Include="RedisClient.h">
+      <Filter>소스 파일\DB\Redis</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
