@@ -31,6 +31,9 @@
     <Filter Include="소스 파일\DB\MYSQL">
       <UniqueIdentifier>{1dcd8adc-7782-46cd-a7bd-fdce1c9a8d59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Protobuf">
+      <UniqueIdentifier>{c59baf62-33c8-4e3e-a717-a3fc57a3360f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="RedisClient.cpp">
       <Filter>소스 파일\DB\Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="src\protobuf\protocol_1.pb.cc">
+      <Filter>소스 파일\Protobuf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="RedisClient.h">
       <Filter>소스 파일\DB\Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="src\protobuf\protocol_1.pb.h">
+      <Filter>소스 파일\Protobuf</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

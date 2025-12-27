@@ -148,6 +148,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PreparedQuery.cpp" />
+    <ClCompile Include="src\protobuf\protocol_1.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccountDBHelper.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="PreparedQuery.h" />
     <ClInclude Include="RedisClient.h" />
+    <ClInclude Include="src\protobuf\protocol_1.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

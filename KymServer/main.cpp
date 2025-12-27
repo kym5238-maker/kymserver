@@ -1,16 +1,73 @@
+#pragma warning(push)
+#pragma warning(disable: 4251 4200 4267 4819 4251 4200) 
+#include <hiredis/hiredis.h>
+#include <google/protobuf/message.h>
+#include <google/protobuf/util/json_util.h>
+#pragma warning(pop)
+#include <iostream>
+#include <string>
+#include <fstream>
 #include "AccountDBHelper.h"
 #include "Error.h"
-#include <iostream>
 #include "Logger.h"
-#include <hiredis/hiredis.h>
-//#include <iostream>
-#include <string>
 #include "RedisClient.h"
-#include <google/protobuf/message.h>
+#include "src/protobuf/protocol_1.pb.h"
 
+
+void SaveCharacter() 
+{
+    protocol::CharacterBase charData;
+    charData.set_level(18);
+    charData.set_job(protocol::JOB_MAGE);
+    charData.set_second_job(protocol::SEC_JOB_ARCHMAGE);
+
+    std::string json_output;
+    google::protobuf::util::JsonPrintOptions options;
+    options.add_whitespace = true;
+    options.always_print_fields_with_no_presence = true;
+
+    auto status = google::protobuf::util::MessageToJsonString(charData, &json_output, options);
+    if (status.ok()) 
+    {
+        std::ofstream outFile("CharacterData.json");
+        outFile << json_output;
+        outFile.close();
+
+        std::cout << "JSON 파일 저장 완료!" << std::endl;
+    }
+}
+
+void LoadCharacter()
+{
+    std::ifstream inFile("CharacterData.json");
+    if (inFile.is_open() == false)
+    {
+        std::cerr << "파일을 열 수 없어!" << std::endl;
+        return;
+    }
+
+    std::string json_str((std::istreambuf_iterator<char>(inFile)), std::istreambuf_iterator<char>());
+    inFile.close();
+
+    protocol::CharacterBase loadedChar;
+    auto status = google::protobuf::util::JsonStringToMessage(json_str, &loadedChar);
+    if (status.ok() == false)
+    {
+        std::cerr << "파싱 실패: " << status.message() << std::endl;
+        return;
+    }
+
+    std::cout << "--- 로드 성공! ---" << std::endl;
+    std::cout << "Level: " << loadedChar.level() << std::endl;
+    std::cout << "Job: " << loadedChar.job() << std::endl;
+    std::cout << "Second Job: " << loadedChar.second_job() << std::endl;
+}
 
 int main()
 {
+    SaveCharacter();
+	LoadCharacter();
+
     Error result{ ErrorCode::None };
 
     RedisClient redis;
