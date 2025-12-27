@@ -310,6 +310,12 @@ Error RedisClient::HDel(const std::string& key, const std::vector<std::string>& 
     return Error{ ErrorCode::None };
 }
 
+Error RedisClient::HDel(const std::string& key, const std::string& field, int64_t& outDeleted)
+{
+    std::vector<std::string> fields = { field };
+    return HDel(key, fields, outDeleted);
+}
+
 // ===== ZSet =====
 Error RedisClient::ZAdd(const std::string& key, double score, const std::string& member, bool& outAdded)
 {

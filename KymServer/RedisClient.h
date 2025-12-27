@@ -54,6 +54,7 @@ public:
     Error HSet(const std::string& key, const std::string& field, const std::string& value, bool& outCreated);
     Error HGet(const std::string& key, const std::string& field, std::string& outValue, bool& outFound);
     Error HDel(const std::string& key, const std::vector<std::string>& fields, int64_t& outDeleted);
+    Error HDel(const std::string& key, const std::string& field, int64_t& outDeleted);
 
     // ===== ZSet 관련 처리 =====
     Error ZAdd(const std::string& key, double score, const std::string& member, bool& outAdded);

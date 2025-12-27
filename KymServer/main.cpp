@@ -52,6 +52,14 @@ int main()
             LOG_ERROR("[Error] AccountDBHelper::UpdateLoginTimestamp() error={}", result);
             return 1;
         }
+
+        bool created = false;
+		result = redis.HSet("online_account", std::to_string(lastAccountID), "1", created);
+        if (result.IsFail())
+        {
+			LOG_ERROR("[Error] RedisClient::Set() error={}", result);
+            return 1;
+        }
     }
 
     if (accounts.empty() == false)
@@ -62,6 +70,14 @@ int main()
         if (result.IsFail())
         {
             LOG_ERROR("[Error] AccountDBHelper::UpdateLogoutTimestamp() error={}", result);
+            return 1;
+        }
+
+        int64_t deleted = false;
+        result = redis.HDel("online_account", { std::to_string(lastAccountID) }, deleted);
+        if (result.IsFail())
+        {
+            LOG_ERROR("[Error] RedisClient::Set() error={}", result);
             return 1;
         }
     }
