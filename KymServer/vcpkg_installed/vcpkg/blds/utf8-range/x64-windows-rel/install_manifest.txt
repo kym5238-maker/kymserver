@@ -1,0 +1,8 @@
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/lib/cmake/utf8_range/utf8_range-targets.cmake
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/lib/cmake/utf8_range/utf8_range-targets-release.cmake
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/lib/utf8_validity.lib
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/lib/utf8_range.lib
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/lib/cmake/utf8_range/utf8_range-config.cmake
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/lib/pkgconfig/utf8_range.pc
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/include/utf8_range.h
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/utf8-range_x64-windows/include/utf8_validity.h

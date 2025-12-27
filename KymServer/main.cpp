@@ -6,6 +6,7 @@
 //#include <iostream>
 #include <string>
 #include "RedisClient.h"
+#include <google/protobuf/message.h>
 
 
 int main()

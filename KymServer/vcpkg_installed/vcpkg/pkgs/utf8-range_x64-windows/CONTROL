@@ -1,0 +1,7 @@
+Package: utf8-range
+Version: 5.29.5
+Depends: abseil, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b2e7cde1a3cc7a1cb62b252d3560d9099ca5515dbd85afdccb8c85209902366d
+Description: Fast UTF-8 validation with Range algorithm (NEON+SSE4+AVX2)

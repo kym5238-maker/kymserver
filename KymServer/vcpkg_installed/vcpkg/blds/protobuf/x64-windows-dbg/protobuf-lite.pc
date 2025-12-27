@@ -1,0 +1,12 @@
+prefix=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/protobuf_x64-windows/debug
+exec_prefix=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/protobuf_x64-windows/debug
+libdir=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/protobuf_x64-windows/debug/lib
+includedir=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/protobuf_x64-windows/debug/include
+
+Name: Protocol Buffers
+Description: Google's Data Interchange Format
+Version: 29.5.0
+Requires: abseil_dll utf8_range
+Libs: -L${libdir} -lprotobuf-lite 
+Cflags: -I${includedir} -DPROTOBUF_USE_DLLS
+Conflicts: protobuf

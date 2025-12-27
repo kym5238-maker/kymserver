@@ -1,0 +1,11 @@
+prefix=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/abseil_x64-windows
+exec_prefix=${prefix}
+libdir=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/abseil_x64-windows/lib
+includedir=C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/pkgs/abseil_x64-windows/include
+
+Name: abseil_dll
+Description: Abseil DLL library
+URL: https://abseil.io/
+Version: 20250814
+Libs: -L${libdir} -labseil_dll 
+Cflags: -I${includedir}

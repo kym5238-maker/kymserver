@@ -1,0 +1,7 @@
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/utf8_range.dir
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/utf8_validity.dir
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/edit_cache.dir
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/list_install_components.dir
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/install.dir
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/vcpkg/blds/utf8-range/x64-windows-dbg/CMakeFiles/install/local.dir

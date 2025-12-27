@@ -1,0 +1,46 @@
+#line 1 "C:\\Users\\MS\\Documents\\GitHub\\kymserver\\KymServer\\vcpkg_installed\\vcpkg\\blds\\protobuf\\x64-windows-dbg\\version.rc"
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 15 "C:\\Users\\MS\\Documents\\GitHub\\kymserver\\KymServer\\vcpkg_installed\\vcpkg\\blds\\protobuf\\x64-windows-dbg\\version.rc"
+
+
+0x1L VERSIONINFO
+  FILEVERSION    29,5,0
+  PRODUCTVERSION 29,5,0
+  FILEFLAGSMASK  0x17L
+  FILEFLAGS      0
+  FILEOS         0x4L
+  FILETYPE       0x2L
+BEGIN
+    BLOCK "VarFileInfo"
+    BEGIN
+        
+        VALUE "Translation", 0x409, 1200
+    END
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "FileDescription", "Compiled with MSVC 19.44.35211.0\0"
+            VALUE "ProductVersion", "29.5.0\0"
+            VALUE "FileVersion", "29.5.0\0"
+            VALUE "InternalName", "protobuf\0"
+            VALUE "ProductName", "Protocol Buffers - Google's Data Interchange Format\0"
+            VALUE "CompanyName", "Google Inc.\0"
+            VALUE "LegalCopyright", "Copyright 2008 Google Inc.  All rights reserved.\0"
+            VALUE "Licence", "BSD\0"
+            VALUE "Info", "https://developers.google.com/protocol-buffers/\0"
+        END
+    END
+END

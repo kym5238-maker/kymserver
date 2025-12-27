@@ -1,0 +1,7 @@
+# ninja log v6
+11	76	7885185510006352	CMakeFiles/utf8_range.dir/utf8_range.c.obj	74f5f038fd0c6737
+26	83	7885185510162079	CMakeFiles/utf8_validity.dir/utf8_range.c.obj	29c07b37b34a93bf
+78	129	7885185510677769	utf8_range.lib	d613c458a200a1dc
+18	295	7885185510081928	CMakeFiles/utf8_validity.dir/utf8_validity.cc.obj	a8dff7d6b1fe6091
+296	350	7885185512861871	utf8_validity.lib	b20d758798d46938
+350	429	7885185513403482	CMakeFiles/install.util	a3627ecee6982c2b

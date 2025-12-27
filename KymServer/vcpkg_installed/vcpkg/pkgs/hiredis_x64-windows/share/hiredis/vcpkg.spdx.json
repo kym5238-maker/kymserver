@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/hiredis-x64-windows-1.3.0-8088ffd1-a964-407e-a8b1-280b8d7e1ba3",
-  "name": "hiredis:x64-windows@1.3.0 1ad0cfa9abe1f03dbbc8b90d4333d0b1755049d971319f005fae2980b30b1f10",
+  "documentNamespace": "https://spdx.org/spdxdocs/hiredis-x64-windows-1.3.0-80edc825-9f93-4784-aa49-b3d50cbe9322",
+  "name": "hiredis:x64-windows@1.3.0 c334b09ef99a125939f699809c8652103001d29841b3a453de9493731629d108",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-2025-04-01-9c604254140797833b6f76908435c9fcbf09920e"
     ],
-    "created": "2025-12-23T09:44:49Z"
+    "created": "2025-12-23T12:24:42Z"
   },
   "relationships": [
     {
@@ -104,7 +104,7 @@
     {
       "name": "hiredis:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "1ad0cfa9abe1f03dbbc8b90d4333d0b1755049d971319f005fae2980b30b1f10",
+      "versionInfo": "c334b09ef99a125939f699809c8652103001d29841b3a453de9493731629d108",
       "downloadLocation": "NONE",
       "licenseConcluded": "BSD-3-Clause",
       "licenseDeclared": "NOASSERTION",
