@@ -598,7 +598,13 @@ Error RedisClient::SmokeTest()
     if (!IsConnected())
         return Error{ ErrorCode::RedisNotConnected };
 
-    Error e;
+    Error e = { ErrorCode::None };
+    e = Connect("127.0.0.1", 6379, 2);
+    if (e.IsFail())
+    {
+        LOG_ERROR("[Error] RedisClient::Connect() error={}", e);
+        return e;
+    }
 
     // ---------- PING ----------
     e = Ping();

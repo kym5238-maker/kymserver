@@ -1,20 +1,31 @@
+#include "DBManager.h"
+
 #pragma warning(push)
 #pragma warning(disable: 4251 4200 4267 4819 4251 4200) 
 #include <hiredis/hiredis.h>
 #include <google/protobuf/message.h>
 #include <google/protobuf/util/json_util.h>
+
 #pragma warning(pop)
 #include <iostream>
-#include <string>
 #include <fstream>
-#include "AccountDBHelper.h"
+#include <string>
+#include "protobuf/protocol_1.pb.h"
 #include "Error.h"
 #include "Logger.h"
 #include "RedisClient.h"
-#include "src/protobuf/protocol_1.pb.h"
+#include "AccountDBHelper.h"
 
 
-void SaveCharacter() 
+void DBManager::JsonTest()
+{
+    std::cout << "=== JsonTest 시작 ===" << std::endl;
+    SaveCharacter();
+    LoadCharacter();
+    std::cout << "=== JsonTest 종료 ===" << std::endl;
+}
+
+void DBManager::SaveCharacter()
 {
     protocol::CharacterBase charData;
     charData.set_level(18);
@@ -27,22 +38,24 @@ void SaveCharacter()
     options.always_print_fields_with_no_presence = true;
 
     auto status = google::protobuf::util::MessageToJsonString(charData, &json_output, options);
-    if (status.ok()) 
+    if (status.ok())
     {
         std::ofstream outFile("CharacterData.json");
-        outFile << json_output;
-        outFile.close();
-
-        std::cout << "JSON 파일 저장 완료!" << std::endl;
+        if (outFile.is_open())
+        {
+            outFile << json_output;
+            outFile.close();
+            std::cout << "[Save] JSON 파일 저장 완료!" << std::endl;
+        }
     }
 }
 
-void LoadCharacter()
+void DBManager::LoadCharacter()
 {
     std::ifstream inFile("CharacterData.json");
-    if (inFile.is_open() == false)
+    if (!inFile.is_open())
     {
-        std::cerr << "파일을 열 수 없어!" << std::endl;
+        std::cerr << "[Load] 파일을 열 수 없어!" << std::endl;
         return;
     }
 
@@ -51,45 +64,48 @@ void LoadCharacter()
 
     protocol::CharacterBase loadedChar;
     auto status = google::protobuf::util::JsonStringToMessage(json_str, &loadedChar);
-    if (status.ok() == false)
+    if (!status.ok())
     {
-        std::cerr << "파싱 실패: " << status.message() << std::endl;
+        std::cerr << "[Load] 파싱 실패: " << status.message() << std::endl;
         return;
     }
 
-    std::cout << "--- 로드 성공! ---" << std::endl;
+    std::cout << "[Load] 로드 성공!" << std::endl;
     std::cout << "Level: " << loadedChar.level() << std::endl;
-    std::cout << "Job: " << loadedChar.job() << std::endl;
-    std::cout << "Second Job: " << loadedChar.second_job() << std::endl;
+    std::cout << "Job: " << (int)loadedChar.job() << std::endl;
+    std::cout << "Second Job: " << (int)loadedChar.second_job() << std::endl;
 }
 
-int main()
+Error DBManager::SmokeTest()
 {
-    SaveCharacter();
-	LoadCharacter();
-
-    Error result{ ErrorCode::None };
+    JsonTest();
 
     RedisClient redis;
-    result = redis.Connect("127.0.0.1", 6379, 2);
-    if (result.IsFail())
-    {
-        LOG_ERROR("[Error] RedisClient::Connect() error={}", result);
-        return 1;
-    }
-
-    result = redis.SmokeTest();
+    Error result = redis.SmokeTest();
     if (result.IsFail())
     {
         LOG_ERROR("[Error] RedisClient::SmokeTest() error={}", result);
-        return 1;
+        return result;
+    }
+
+    return { ErrorCode::None };
+}
+
+Error DBManager::AccountDBSmokeTest()
+{
+    RedisClient redis;
+    Error result = redis.Connect("127.0.0.1", 6379, 2);
+    if (result.IsFail())
+    {
+        LOG_ERROR("[Error] RedisClient::Connect() error={}", result);
+        return result;
     }
 
     result = AccountDBHelper::Register("test02", "1234", "moalpapa2");
     if (result.IsFail())
     {
         LOG_ERROR("[Error] AccountDBHelper::Register() error={}", result);
-        return 1;
+        return result;
     }
 
     std::vector<AccountRow> accounts;
@@ -97,9 +113,9 @@ int main()
     if (result.IsFail())
     {
         LOG_ERROR("[Error] AccountDBHelper::GetAllAccounts() error={}", result);
-        return 1;
+        return result;
     }
-   
+
     if (accounts.empty() == false)
     {
         const int lastAccountID = accounts.back().accountId;
@@ -108,15 +124,15 @@ int main()
         if (result.IsFail())
         {
             LOG_ERROR("[Error] AccountDBHelper::UpdateLoginTimestamp() error={}", result);
-            return 1;
+            return result;
         }
 
         bool created = false;
-		result = redis.HSet("online_account", std::to_string(lastAccountID), "1", created);
+        result = redis.HSet("online_account", std::to_string(lastAccountID), "1", created);
         if (result.IsFail())
         {
-			LOG_ERROR("[Error] RedisClient::Set() error={}", result);
-            return 1;
+            LOG_ERROR("[Error] RedisClient::Set() error={}", result);
+            return result;
         }
     }
 
@@ -128,7 +144,7 @@ int main()
         if (result.IsFail())
         {
             LOG_ERROR("[Error] AccountDBHelper::UpdateLogoutTimestamp() error={}", result);
-            return 1;
+            return result;
         }
 
         int64_t deleted = false;
@@ -136,9 +152,9 @@ int main()
         if (result.IsFail())
         {
             LOG_ERROR("[Error] RedisClient::Set() error={}", result);
-            return 1;
+            return result;
         }
     }
 
-    return 0;
+    return { ErrorCode::None };
 }
