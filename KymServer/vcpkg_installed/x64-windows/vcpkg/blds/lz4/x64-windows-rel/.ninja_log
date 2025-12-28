@@ -1,0 +1,9 @@
+# ninja log v6
+16	122	7886339651875806	CMakeFiles/lz4_shared.dir/5b1f55f5b03c77c39a4c3270b89c676b/x64-windows/vcpkg/blds/lz4/src/v1.10.0-61bd08d80e.clean/lib/lz4file.c.obj	cb4e6c6a6fa9b85a
+41	196	7886339652126139	CMakeFiles/lz4_shared.dir/5b1f55f5b03c77c39a4c3270b89c676b/x64-windows/vcpkg/blds/lz4/src/v1.10.0-61bd08d80e.clean/lib/xxhash.c.obj	f17edc8f9eac6540
+24	231	7886339651950891	CMakeFiles/lz4_shared.dir/5b1f55f5b03c77c39a4c3270b89c676b/x64-windows/vcpkg/blds/lz4/src/v1.10.0-61bd08d80e.clean/lib/lz4frame.c.obj	6c0bfa14d8f16397
+9	840	7886339651805830	CMakeFiles/lz4_shared.dir/5b1f55f5b03c77c39a4c3270b89c676b/x64-windows/vcpkg/blds/lz4/src/v1.10.0-61bd08d80e.clean/lib/lz4.c.obj	6ba02b668c658811
+31	1807	7886339652031067	CMakeFiles/lz4_shared.dir/5b1f55f5b03c77c39a4c3270b89c676b/x64-windows/vcpkg/blds/lz4/src/v1.10.0-61bd08d80e.clean/lib/lz4hc.c.obj	2171cf0c2e52b4c5
+1808	1992	7886339671384479	lz4.dll	bcd919299b6f0532
+1808	1992	7886339671384479	lz4.lib	bcd919299b6f0532
+1993	2116	7886339671650642	CMakeFiles/install.util	5d7cba8928e563b4

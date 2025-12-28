@@ -1,0 +1,12 @@
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/lib/lz4.lib
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/bin/lz4.dll
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/include/lz4.h
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/include/lz4hc.h
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/include/lz4frame.h
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/include/lz4file.h
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/share/man/man1/lz4.1
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/lib/pkgconfig/liblz4.pc
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/lib/cmake/lz4/lz4Targets.cmake
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/lib/cmake/lz4/lz4Targets-release.cmake
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/lib/cmake/lz4/lz4Config.cmake
+C:/Users/MS/Documents/GitHub/kymserver/KymServer/vcpkg_installed/x64-windows/vcpkg/pkgs/lz4_x64-windows/lib/cmake/lz4/lz4ConfigVersion.cmake

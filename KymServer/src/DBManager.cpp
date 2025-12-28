@@ -16,7 +16,7 @@
 #include "RedisClient.h"
 #include "AccountDBHelper.h"
 #include "CharacterDBHelper.h"
-//#include "lz4.h"
+#include "lz4.h"
 
 
 void DBManager::JsonTest()
@@ -54,50 +54,51 @@ Error DBManager::SaveCharacter()
         }
     }
 
-    //// 2. 바이너리로 직렬화 (Serialization)
-    //std::string rawBinary = charData.SerializeAsString();
-    //if (rawBinary.empty()) {
-    //    LOG_ERROR("Protobuf serialization failed!");
-    //    return;
-    //}
-    //
+    // 2. 바이너리로 직렬화 (Serialization)
+    std::string rawBinary = charData.SerializeAsString();
+    if (rawBinary.empty()) {
+        LOG_ERROR("Protobuf serialization failed!");
+        return { ErrorCode::InvalidParameter };
+    }
+    
     // 3. LZ4 압축
     // 압축 후 최대 예상 크기를 계산해서 버퍼 확보
-    //int maxCompressedSize = LZ4_compressBound(static_cast<int>(rawBinary.size()));
-    //std::vector<char> compressedBuffer(maxCompressedSize);
-    //
-    //// 실제 압축 수행
-    //int compressedSize = LZ4_compress_default(
-    //    rawBinary.data(),
-    //    compressedBuffer.data(),
-    //    static_cast<int>(rawBinary.size()),
-    //    maxCompressedSize
-    //);
-    //
-    //if (compressedSize <= 0) {
-    //    LOG_ERROR("LZ4 Compression failed!");
-    //    return;
-    //}
-    //
-    //// 실제 압축된 크기만큼만 string으로 변환
-    //std::string finalBlob(compressedBuffer.data(), compressedSize);
-    //
-    //// 4. DB에 저장 (우리가 만든 DBHelper 사용)
-    //Error result = CharacterDBHelper::CreateCharacter(charKey, finalBlob);
-    //
-    //if (result.IsFail()) 
-    //{
-    //    LOG_ERROR("SaveCharacterToDB failed! error={}", result);
-    //    return result;
-    //}
-    //
-    //LOG_INFO("SaveCharacterToDB success! Original: {} bytes, Compressed: {} bytes",rawBinary.size(), compressedSize);
+    int maxCompressedSize = LZ4_compressBound(static_cast<int>(rawBinary.size()));
+    std::vector<char> compressedBuffer(maxCompressedSize);
+    
+    // 실제 압축 수행
+    int compressedSize = LZ4_compress_default(
+        rawBinary.data(),
+        compressedBuffer.data(),
+        static_cast<int>(rawBinary.size()),
+        maxCompressedSize
+    );
+    
+    if (compressedSize <= 0) {
+        LOG_ERROR("LZ4 Compression failed!");
+        return { ErrorCode::InvalidParameter };
+    }
+    
+    // 실제 압축된 크기만큼만 string으로 변환
+    std::string finalBlob(compressedBuffer.data(), compressedSize);
+    
+    // 4. DB에 저장 (우리가 만든 DBHelper 사용)
+    Error result = CharacterDBHelper::CreateCharacter(charKey, finalBlob);
+    if (result.IsFail()) 
+    {
+        LOG_ERROR("SaveCharacterToDB failed! error={}", result);
+        return result;
+    }
+    
+    LOG_INFO("SaveCharacterToDB success! Original: {} bytes, Compressed: {} bytes",rawBinary.size(), compressedSize);
 
     return { ErrorCode::None };
 }
 
 void DBManager::LoadCharacter()
 {
+    const int charKey = 1001;
+
     std::ifstream inFile("CharacterData.json");
     if (!inFile.is_open())
     {
@@ -120,6 +121,43 @@ void DBManager::LoadCharacter()
     std::cout << "Level: " << loadedChar.level() << std::endl;
     std::cout << "Job: " << (int)loadedChar.job() << std::endl;
     std::cout << "Second Job: " << (int)loadedChar.second_job() << std::endl;
+
+    CharacterRow row;
+    Error err = CharacterDBHelper::GetCharacter(charKey, row);
+    if (err.IsFail())
+    {
+        LOG_ERROR("[Load] 캐릭터를 찾을 수 없거나 DB 에러! key={}, error={}", charKey, err);
+        return;
+    }
+
+    const int maxExpectedSize = 64 * 1024;
+    std::vector<char> decompressBuffer(maxExpectedSize);
+
+    int decompressedSize = LZ4_decompress_safe(
+        row.c1.data(),
+        decompressBuffer.data(),
+        static_cast<int>(row.c1.size()),
+        maxExpectedSize
+    );
+
+    if (decompressedSize < 0)
+    {
+        LOG_ERROR("[Load] LZ4 압축 해제 실패!");
+        return;
+    }
+
+    protocol::CharacterBase loadedCharFromBlob;
+    if (!loadedCharFromBlob.ParseFromArray(decompressBuffer.data(), decompressedSize))
+    {
+        LOG_ERROR("[Load] Protobuf 파싱 실패!");
+        return;
+    }
+
+    std::cout << "[Load] DB 로드 및 압축 해제 성공!" << std::endl;
+    std::cout << "Key: " << row.characterKey << " (Created: " << row.createdDt << ")" << std::endl;
+    std::cout << "Level: " << loadedCharFromBlob.level() << std::endl;
+    std::cout << "Job: " << (int)loadedCharFromBlob.job() << std::endl;
+    std::cout << "Second Job: " << (int)loadedCharFromBlob.second_job() << std::endl;
 }
 
 Error DBManager::SmokeTest()
