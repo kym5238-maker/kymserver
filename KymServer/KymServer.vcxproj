@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AccountDBHelper.cpp" />
+    <ClCompile Include="src\CharacterDBHelper.cpp" />
     <ClCompile Include="src\DBExecutor.cpp" />
     <ClCompile Include="src\Error.cpp" />
     <ClCompile Include="src\ErrorCode.h" />
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AccountDBHelper.h" />
+    <ClInclude Include="src\CharacterDBHelper.h" />
     <ClInclude Include="src\DBExecutor.h" />
     <ClInclude Include="src\DBQueryResult.h" />
     <ClInclude Include="src\DBResult.h" />

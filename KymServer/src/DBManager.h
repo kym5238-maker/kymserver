@@ -17,7 +17,7 @@ public:
     void JsonTest();
 
 private:
-    void SaveCharacter();
+    Error SaveCharacter();
     void LoadCharacter();
 
 public:

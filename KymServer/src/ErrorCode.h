@@ -15,6 +15,9 @@ enum class ErrorCode
     RedisReplyError = 13,
     RedisUnexpectedReply = 14,   
 
+    // ===== MYSQL =====
+    SelectNotFound = 20,
+
     // ===== Account / Auth =====
     DuplicateKey = 30,
     AccountNotFound = 31,

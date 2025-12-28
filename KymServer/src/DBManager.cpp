@@ -5,8 +5,8 @@
 #include <hiredis/hiredis.h>
 #include <google/protobuf/message.h>
 #include <google/protobuf/util/json_util.h>
-
 #pragma warning(pop)
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -15,6 +15,8 @@
 #include "Logger.h"
 #include "RedisClient.h"
 #include "AccountDBHelper.h"
+#include "CharacterDBHelper.h"
+//#include "lz4.h"
 
 
 void DBManager::JsonTest()
@@ -25,8 +27,10 @@ void DBManager::JsonTest()
     std::cout << "=== JsonTest 종료 ===" << std::endl;
 }
 
-void DBManager::SaveCharacter()
+Error DBManager::SaveCharacter()
 {
+	const int charKey = 1001;
+
     protocol::CharacterBase charData;
     charData.set_level(18);
     charData.set_job(protocol::JOB_MAGE);
@@ -37,6 +41,7 @@ void DBManager::SaveCharacter()
     options.add_whitespace = true;
     options.always_print_fields_with_no_presence = true;
 
+	// 1. JSON으로 직렬화(Serialization) 및 출력 테스트
     auto status = google::protobuf::util::MessageToJsonString(charData, &json_output, options);
     if (status.ok())
     {
@@ -48,6 +53,47 @@ void DBManager::SaveCharacter()
             std::cout << "[Save] JSON 파일 저장 완료!" << std::endl;
         }
     }
+
+    //// 2. 바이너리로 직렬화 (Serialization)
+    //std::string rawBinary = charData.SerializeAsString();
+    //if (rawBinary.empty()) {
+    //    LOG_ERROR("Protobuf serialization failed!");
+    //    return;
+    //}
+    //
+    // 3. LZ4 압축
+    // 압축 후 최대 예상 크기를 계산해서 버퍼 확보
+    //int maxCompressedSize = LZ4_compressBound(static_cast<int>(rawBinary.size()));
+    //std::vector<char> compressedBuffer(maxCompressedSize);
+    //
+    //// 실제 압축 수행
+    //int compressedSize = LZ4_compress_default(
+    //    rawBinary.data(),
+    //    compressedBuffer.data(),
+    //    static_cast<int>(rawBinary.size()),
+    //    maxCompressedSize
+    //);
+    //
+    //if (compressedSize <= 0) {
+    //    LOG_ERROR("LZ4 Compression failed!");
+    //    return;
+    //}
+    //
+    //// 실제 압축된 크기만큼만 string으로 변환
+    //std::string finalBlob(compressedBuffer.data(), compressedSize);
+    //
+    //// 4. DB에 저장 (우리가 만든 DBHelper 사용)
+    //Error result = CharacterDBHelper::CreateCharacter(charKey, finalBlob);
+    //
+    //if (result.IsFail()) 
+    //{
+    //    LOG_ERROR("SaveCharacterToDB failed! error={}", result);
+    //    return result;
+    //}
+    //
+    //LOG_INFO("SaveCharacterToDB success! Original: {} bytes, Compressed: {} bytes",rawBinary.size(), compressedSize);
+
+    return { ErrorCode::None };
 }
 
 void DBManager::LoadCharacter()
